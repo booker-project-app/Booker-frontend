@@ -4,7 +4,8 @@
       <div class="picture-section">
         <img [src]="updateUser.profilePicture?.path" alt="profile-pic" class="profile-pic" />
         <button class="change-pic-button" (click)="fileInput.click()">upload</button>
-        <input #fileInput type="file" style="display: none;" (change)="onFileSelected($event)" />
+        <input class="more-img" #fileInput type="file" style="display: none;" accept="image/*" multiple (change)="handleFileInput($event)">
+        <!--<input #fileInput type="file" style="display: none;" (change)="onFileSelected($event)" />-->
       </div>
       <div class="info-section">
         <h2 class="section-title">Profile: </h2>

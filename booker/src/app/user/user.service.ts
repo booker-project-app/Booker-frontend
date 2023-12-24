@@ -223,6 +223,14 @@ export class UserService {
     );
   }
 
+  uploadFile(id:number, files: File[]) {
+    const data : FormData = new FormData();
+    for (let file of files){
+      data.append("images", file);
+    }
+    return this.http.post(environment.apiHost + 'api/users/' + id + '/upload_images', data);
+  }
+
 
 }
 

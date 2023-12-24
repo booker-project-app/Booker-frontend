@@ -47,17 +47,23 @@ export class GuestViewComponent implements OnInit{
     })
   }
 
-  onFileSelected(event: any) {
-    const file = event.target.files[0];
-    const reader = new FileReader();
+  handleFileInput(event: any) {
+    const files = event.target.files;
+    if (files.length === 0) {
+      return;
+    }
 
-    reader.onload = (e: any) => {
-      // @ts-ignore
-      this.updateUser.profilePicture.path = e.target.result;
-    };
-    reader.readAsDataURL(file);
-    // @ts-ignore
-    console.log(this.updateUser.profilePicture.path);
+    console.log(files);
+
+    this.service.uploadFile(this.loggedIn, files).subscribe(
+      (response:any) => {
+        console.log('Files uploaded successfully', response);
+        //location.reload();
+      },
+      (error) => {
+        //location.reload();
+      }
+    );
   }
 
   saveChanges(): void {

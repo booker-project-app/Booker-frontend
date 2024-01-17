@@ -3,6 +3,7 @@ import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {UserService} from "../../user/user.service";
 import {catchError, map, of, Subject, takeUntil} from "rxjs";
 import {ActivatedRoute, Router} from "@angular/router";
+import {SocketService} from "../../service/socket.service";
 
 interface DisplayMessage {
   msgType: string;
@@ -25,11 +26,13 @@ export class LoginComponent implements OnInit{
     email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', [Validators.required, Validators.minLength(8)])
   });
+  userId!: string;
 
   constructor(private userService : UserService,
               private router: Router,
               private route: ActivatedRoute,
-              private formBuilder: FormBuilder) {
+              private formBuilder: FormBuilder,
+              private socketService : SocketService) {
   }
 
 
@@ -102,9 +105,14 @@ export class LoginComponent implements OnInit{
       .pipe(
         map(data => {
           console.log(data);
+          this.userId = localStorage.getItem('loggedId')!;
+          this.socketService.openSocket(this.userId);
+          console.log("Socket opened");
           // Transform the data if needed
           return data;
+
         }),
+
         catchError(error => {
           if(error.status == 400){
             alert("Validation failed!");
@@ -127,5 +135,6 @@ export class LoginComponent implements OnInit{
         //this.userService.getMyInfo().subscribe();
         this.router.navigate([this.returnUrl]);
       });
+
   }
 }

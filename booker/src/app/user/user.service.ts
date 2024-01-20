@@ -76,25 +76,25 @@ export class UserService {
 
           return this.findById(token.userId).pipe(
             map((user: User) => {
-                this.loggedInUser = user;
+              this.loggedInUser = user;
 
-                if (this.loggedInUser && this.loggedInUser.role) {
-                    if (this.loggedInUser.role === UserType.GUEST) {
-                        this.loginRole = 'guests';
-                    } else if (this.loggedInUser.role === UserType.OWNER) {
-                        this.loginRole = 'owners';
-                    } else if (this.loggedInUser.role === UserType.ADMIN) {
-                        this.loginRole = 'admins';
-                    }
+              if (this.loggedInUser && this.loggedInUser.role) {
+                if (this.loggedInUser.role === UserType.GUEST) {
+                  this.loginRole = 'guests';
+                } else if (this.loggedInUser.role === UserType.OWNER) {
+                  this.loginRole = 'owners';
+                } else if (this.loggedInUser.role === UserType.ADMIN) {
+                  this.loginRole = 'admins';
                 }
+              }
 
-                // Sačuvaj ulogu korisnika u localStorage
-                localStorage.setItem('loggedRole', this.loginRole);
+              // Sačuvaj ulogu korisnika u localStorage
+              localStorage.setItem('loggedRole', this.loginRole);
 
-                return this.loggedInUser; // Povrati podatke o ulogovanom korisniku
+              return this.loggedInUser; // Povrati podatke o ulogovanom korisniku
             })
-        );
-          }),
+          );
+        }),
         catchError((error: any) => {
           console.error('Error during login:', error);
           console.log('Error Response Body:', error.error); // Log the response body for further inspection

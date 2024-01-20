@@ -79,4 +79,9 @@ export class ApiService {
   private looseInvalid(a: string | number): boolean {
     return a === '' || a === null || a === undefined;
   }
+
+  putUpdateAvailability(path: string, body: any, customHeaders?: HttpHeaders): Observable<any> {
+    return this.request(path, body, RequestMethod.Put, customHeaders);
+  }
+
 }

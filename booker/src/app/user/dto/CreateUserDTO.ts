@@ -10,4 +10,5 @@ export interface CreateUserDTO {
   phone: string;
   role?: UserType;
   profilePicture?: ProfilePicture;
+  activationLink: string;
 }

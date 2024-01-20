@@ -13,9 +13,9 @@
             <ng-template matStepLabel>Accommodation availability</ng-template>
             <mat-form-field>
               <mat-label>Enter a date range</mat-label>
-              <mat-date-range-input [rangePicker]="picker" >
-                <input formControlName="startDate" matStartDate placeholder="Start date">
-                <input formControlName="endDate" matEndDate placeholder="End date">
+              <mat-date-range-input [min]="todayDate" [rangePicker]="picker" >
+                <input [min]="todayDate" formControlName="startDate" matStartDate placeholder="Start date">
+                <input [min]="todayDate" formControlName="endDate"  matEndDate placeholder="End date">
               </mat-date-range-input>
               <mat-datepicker-toggle matIconPrefix [for]="picker"></mat-datepicker-toggle>
               <mat-date-range-picker #picker></mat-date-range-picker>
@@ -29,7 +29,7 @@
             <ng-template matStepLabel>Accommodation price</ng-template>
             <mat-form-field>
               <mat-label>Enter period</mat-label>
-              <mat-date-range-input [rangePicker]="picker_price">
+              <mat-date-range-input [min]="todayDate" [rangePicker]="picker_price">
                 <input formControlName="priceStartDate" matStartDate placeholder="Start date" required>
                 <input formControlName="priceEndDate" matEndDate placeholder="End date" required>
 
@@ -45,8 +45,8 @@
             <mat-card>
               <mat-card-content>
                 <mat-radio-group formControlName="price_type">
-                  <mat-radio-button>Per guest</mat-radio-button>
-                  <mat-radio-button>Per accommodation</mat-radio-button>
+                  <mat-radio-button value="PER_GUEST">Per guest</mat-radio-button>
+                  <mat-radio-button value="PER_ACCOMMODATION">Per accommodation</mat-radio-button>
                 </mat-radio-group>
               </mat-card-content>
             </mat-card>
@@ -69,8 +69,8 @@
         <mat-step>
           <ng-template matStepLabel>Submit data</ng-template>
           <div id="buttons">
-            <button type="submit" mat-raised-button (click)="submitForm()">Submit</button>
-            <button type="reset" mat-raised-button>Reset</button>
+            <button type="submit" [disabled]="!areFormGroupsValid()" mat-raised-button (click)="submitForm()" id="submitBtn">Submit</button>
+            <button type="reset" mat-raised-button id="resetBtn" (click)="resetForm()">Reset</button>
           </div>
         </mat-step>
       </mat-vertical-stepper>

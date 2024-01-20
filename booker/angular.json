@@ -82,9 +82,10 @@
             "polyfills": [
               "zone.js",
               "zone.js/testing",
-              "polyfills.ts"
+              "src/polyfills.ts"
             ],
             "tsConfig": "tsconfig.spec.json",
+            "karmaConfig": "karma.conf.js",
             "assets": [
               "src/favicon.ico",
               "src/assets"

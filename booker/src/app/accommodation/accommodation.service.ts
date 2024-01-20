@@ -20,6 +20,7 @@ import {UpdateAccommodationViewDTO} from "./dto/UpdateAccommodationViewDTO";
 import {UpdateAddressDTO} from "./dto/UpdateAddressDTO";
 import {AmenityDTO} from "../amenity/AmenityDTO";
 import {FavouriteAccommodation} from "./accommodation/model/favourite-accommodation";
+import {AccommodationUpdatedAvailabilityDTO} from "./update-availability/model/AccommodationUpdatedAvailabilityDTO";
 
 @Injectable({
   providedIn: 'root'
@@ -98,8 +99,14 @@ export class AccommodationService {
     + endDate + '/' + people);
   }
 
-  updateAvailability(id: number, updateAvailabilityDTO: any) {
-    return this.apiService.put(this.configService.accommodations_url + `/update_availability/${id}`, updateAvailabilityDTO);
+
+
+  updateAvailability(id: number, updateAvailabilityDTO: any): Observable<AccommodationUpdatedAvailabilityDTO> {
+    const headers = new HttpHeaders({
+      'Authorization': 'Bearer ' + localStorage.getItem('jwt'),
+      'Content-Type': 'application/json'
+    });
+    return this.apiService.post(this.configService.accommodations_url + `/update_availability/${id}`, updateAvailabilityDTO, headers);
   }
   getRatings(id: number | undefined) {
     return this.http.get<AccommodationRating[]>(environment.apiHost + 'api/accommodation_ratings/all/' + id + '/ratings');

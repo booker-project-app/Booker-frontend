@@ -1,13 +1,10 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
+import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {AccommodationService} from "../accommodation.service";
 import {SnackBarComponent} from "../../shared/snack-bar/snack-bar.component";
-import {ActivatedRoute, Router} from "@angular/router";
-import {catchError, map, of, Subject, takeUntil} from "rxjs";
 import {Price} from "../accommodation/model/price.model";
 import {PriceType} from "../../enums/price-type.enum";
 import {UpdateAvailabilityDTO} from "./model/UpdateAvailabilityDTO";
-import {HttpClient} from "@angular/common/http";
 
 interface DisplayMessage {
   msgType: string;
@@ -20,24 +17,25 @@ interface DisplayMessage {
   styleUrls: ['./update-availability.component.css']
 })
 export class UpdateAvailabilityComponent implements OnInit{
+  todayDate:Date = new Date();
+  submitted = false;
   formGroupAvailability = new FormGroup({
-    startDate: new FormControl(''),
-    endDate: new FormControl('')
+    startDate: new FormControl('', [Validators.required]),
+    endDate: new FormControl('', [Validators.required])
   })
 
   formGroupPrice = new FormGroup({
-    priceStartDate: new FormControl(),
-    priceEndDate: new FormControl(),
-    amount: new FormControl(100.0, [Validators.required]),
-    price_type: new FormControl('PER_GUEST', [Validators.required])
+    priceStartDate: new FormControl('', [Validators.required]),
+    priceEndDate: new FormControl('', [Validators.required]),
+    amount: new FormControl(100.0, [Validators.required, Validators.min(0)]),
+    price_type: new FormControl(PriceType.PER_GUEST, [Validators.required])
   })
 
   formGroupDeadline = new FormGroup({
-    deadline: new FormControl(1, [Validators.required])
+    deadline: new FormControl(0, [Validators.required, Validators.min(1)]),
   })
 
-  constructor(private http: HttpClient,
-              private snackBar: SnackBarComponent,
+  constructor(public snackBar: SnackBarComponent,
               private accommodationService: AccommodationService) {
   }
   ngOnInit(): void {
@@ -48,10 +46,11 @@ export class UpdateAvailabilityComponent implements OnInit{
   }
 
   submitForm() {
+    this.submitted = true;
     const price: Price = {
       cost: this.formGroupPrice.value.amount!,
-      fromDate: this.formGroupPrice.value.priceStartDate,
-      toDate: this.formGroupPrice.value.priceEndDate,
+      fromDate: this.formGroupPrice.value.priceStartDate!,
+      toDate: this.formGroupPrice.value.priceEndDate!,
       type: (this.formGroupPrice.value.price_type === "PER_ACCOMMODATION") ? PriceType.PER_ACCOMMODATION : PriceType.PER_GUEST,
     };
 
@@ -67,6 +66,7 @@ export class UpdateAvailabilityComponent implements OnInit{
     this.accommodationService.updateAvailability(accommodationId, updateAvailability).subscribe(
       (response) => {
         console.log("Successfully updated: ", response);
+        this.resetForm();
         //this.uploadPhotos(response.id!);
         this.openSnackBar("Success!", "Close");
 
@@ -80,6 +80,27 @@ export class UpdateAvailabilityComponent implements OnInit{
 
 
 
+  }
+
+  areFormGroupsValid(): boolean {
+
+    return (
+        this.formGroupAvailability.valid &&
+        this.formGroupPrice.valid &&
+        this.formGroupDeadline.valid
+    );
+  }
+
+  resetForm() {
+    // Reset the form to its initial state
+    this.formGroupAvailability.reset();
+    this.formGroupPrice.reset({
+      amount: 100.0,
+      price_type: PriceType.PER_GUEST,
+    });
+    this.formGroupDeadline.reset({
+      deadline: 0,
+    });
   }
 
 

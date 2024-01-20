@@ -21,6 +21,7 @@ export class GuestViewComponent implements OnInit{
   confirmPassword: string = '';
   @ViewChild('fileInput') fileInput!: ElementRef;
   loggedIn:number = 0;
+  path = '../../assets/images/apartment_image.jpg'
 
   constructor(private service: UserService) { }
 
@@ -30,6 +31,9 @@ export class GuestViewComponent implements OnInit{
     this.service.getGuestById(loggedId).subscribe({
       next: (result: Guest) => {
         this.guest = result;
+        if (this.guest.profilePicture) {
+          this.path = this.guest.profilePicture.path;
+        }
         this.updateUser = {
           _id: this.loggedIn,
           name: result.name,
@@ -123,6 +127,9 @@ export class GuestViewComponent implements OnInit{
         this.service.getGuestById(this.loggedIn).subscribe({
           next: (result: Guest) => {
             this.guest = result;
+            if (this.guest.profilePicture) {
+              this.path = this.guest.profilePicture.path;
+            }
           },
           error: (err: any) => {
             console.log(err);
@@ -134,6 +141,9 @@ export class GuestViewComponent implements OnInit{
         this.service.getGuestById(this.loggedIn).subscribe({
           next: (result: Guest) => {
             this.guest = result;
+            if (this.guest.profilePicture) {
+              this.path = this.guest.profilePicture.path;
+            }
           },
           error: (err: any) => {
             console.log(err);

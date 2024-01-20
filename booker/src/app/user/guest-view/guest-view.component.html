@@ -2,7 +2,7 @@
   <div class="big-container">
     <div class="half-container">
       <div class="picture-section">
-        <img [src]="guest.profilePicture?.path" alt="profile-pic" class="profile-pic" />
+        <img [src]='path' alt="profile-pic" class="profile-pic" id="profile-picture" />
         <!--<button class="change-pic-button" (click)="fileInput.click()">upload</button>-->
         <input id="input_image" type="file" accept="image/*" multiple (change)="handleFileInput($event)" />
       </div>

@@ -47,8 +47,8 @@ export class AccommodationService {
     return this.http.post<AccommodationListingDto[]>(environment.apiHost + 'api/accommodations/' + 'search/' + startDate + '/' + endDate + '/' + location + '/' + people + '/filter',
       requestBody,
       {headers: {
-        'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': 'http://localhost:4200'}});
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': 'http://localhost:4200'}});
   }
 
   getAccommodation(id: number): Observable<AccommodationViewDto> {
@@ -95,7 +95,7 @@ export class AccommodationService {
 
   getPrice(id: number | undefined, startDate: string | undefined, endDate: string | undefined, people: number) {
     return this.http.get<number>(environment.apiHost + 'api/prices/' + id + '/' + startDate + '/'
-    + endDate + '/' + people);
+      + endDate + '/' + people);
   }
 
   updateAvailability(id: number, updateAvailabilityDTO: any) {

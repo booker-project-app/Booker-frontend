@@ -35,6 +35,9 @@ import {
   AccommodationCommentsAndRatingsComponent
 } from "./comments-and-ratings/accommodation-comments-and-ratings/accommodation-comments-and-ratings.component";
 import {ReportedUsersComponent} from "./reported-users-admin/reported-users/reported-users.component";
+import {
+  MakeReservationRequestComponent
+} from "./accommodation/make-reservation-request/make-reservation-request.component";
 
 
 const routes: Routes = [
@@ -66,7 +69,8 @@ const routes: Routes = [
   {path: 'notifications', component: NotificationsComponent},
   {path: 'comments_and_ratings/owner', component: OwnerCommentsAndRatingsComponent},
   {path: 'comments_and_ratings/accommodation', component: AccommodationCommentsAndRatingsComponent},
-  {path: 'reported', component: ReportedUsersComponent}
+  {path: 'reported', component: ReportedUsersComponent},
+  {path: 'make_request/:id', component: MakeReservationRequestComponent}
 ];
 
 @NgModule({

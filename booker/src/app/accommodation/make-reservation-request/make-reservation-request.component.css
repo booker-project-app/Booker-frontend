@@ -1,0 +1,87 @@
+.desktop-11 {
+  background-image: url("../../../assets/images/background_image.png");
+  background-size: contain;
+  background-position: center;
+  height: 100vh;
+  min-height: 100px;
+  max-height: max-content;
+  width: 100%;
+  overflow: hidden;
+  text-align: right;
+  font-size: 12px;
+  color: #3c3c3c;
+  font-family: Roboto, serif;
+}
+.dialog1 {
+  position: relative;
+  top: 50px;
+  left: 50px;
+  border-radius: 10px;
+  background-color: #90A28880;
+  width: 93%;
+  height: 40vh;
+  min-height: 100px;
+  overflow: hidden;
+  padding-bottom: 20px;
+  align-items: center;
+  display: flex;
+}
+.description {
+  text-align: left;
+  font-size: 13px;
+}
+.container {
+  padding: 1%;
+  margin-left: 1.5%;
+  width: 95%;
+  height: fit-content;
+  background-color: #90A288;
+  border-radius: 10px;
+  float: left;
+  margin-bottom: 10px;
+  align-content: flex-start;
+  text-align: left;
+}
+
+.left_part_reservation {
+  float: left;
+}
+.reservation {
+  padding: 1%;
+  margin-left: 1.5%;
+  width: 95%;
+  height: fit-content;
+  background-color: #90A288;
+  border-radius: 10px;
+  float: left;
+  margin-bottom: 60px;
+  text-align: left;
+}
+.left_part_reservation {
+  margin-left: 50px;
+}
+.reservation_btn {
+  background-color: #3c3c3c;
+  color: #e5e5e5;
+  border-radius: 10px;
+  border: #00000000;
+  min-height: 50px;
+  width: 16%;
+  margin-left: 50px;
+  margin-right: 50px;
+}
+#people_input {
+  border-radius: 10px;
+  border-color: #00000000;
+  background-color: #e5e5e580;
+  height: 50px;
+  width: 20%;
+  margin-left: 50px;
+}
+#price {
+  height: 50px;
+  width: 15%;
+  margin-left: 50px;
+  border-radius: 10px;
+  border-color: #00000000;
+}

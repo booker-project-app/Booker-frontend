@@ -5,7 +5,7 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatNativeDateModule} from '@angular/material/core';
 import {FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
 import {AccommodationViewDto} from "./model/accommodation-view";
-import {ActivatedRoute, RouterLink} from "@angular/router";
+import {ActivatedRoute, Router, RouterLink} from "@angular/router";
 import {AccommodationService} from "../accommodation.service";
 import {DatePipe, DecimalPipe, NgClass, NgForOf, NgIf} from "@angular/common";
 import {ReservationRequest} from "./model/ReservationRequest";
@@ -75,7 +75,8 @@ export class AccommodationComponent implements OnInit  {
               private formBuilder: FormBuilder,
               private accommodationCommentService: AccommodationCommentService,
               private snackBar: SnackBarComponent,
-              private notificationService: NotificationService) {
+              private notificationService: NotificationService,
+              private router: Router) {
   }
 
   ngOnInit(): void {
@@ -175,78 +176,7 @@ export class AccommodationComponent implements OnInit  {
   }
 
   makeReservation() {
-    if (this.form.valid
-      && this.checkDate(new Date(this.startDate.toString()))
-      && this.checkDate(new Date(this.endDate.toString()))) {
-      if (this.people <= this.accommodation.max_capacity
-        &&
-        this.people >= this.accommodation.min_capacity) {
-        let id = 0;
-        this.route.params.subscribe((params) => {
-          id = +params['id']
-        });
-        const year1 = this.startDate.getFullYear();
-        const month1 = (this.startDate.getMonth() + 1).toString().padStart(2, '0'); // Month is zero-based
-        const day1 = this.startDate.getDate().toString().padStart(2, '0');
-        console.log(year1 + ", " + month1 + ", " + day1)
-        const formattedFromDate = `${year1}-${month1}-${day1}`;
-
-        const year2 = this.endDate.getFullYear();
-        const month2 = (this.endDate.getMonth() + 1).toString().padStart(2, '0'); // Month is zero-based
-        const day2 = this.endDate.getDate().toString().padStart(2, '0');
-        console.log(year2 + ", " + month2 + ", " + day2)
-        const formattedToDate = `${year2}-${month2}-${day2}`;
-
-        const request: ReservationRequest = {
-          guestId: this.loggedInGuest,
-          accommodationId: id,
-          id: -1,
-          fromDate: formattedFromDate,
-          toDate: formattedToDate,
-          numberOfGuests: this.people,
-          status: ReservationRequestStatus.WAITING,
-          deleted: false,
-          price: Number(this.price.toFixed(2))
-        }
-        this.service.makeReservationRequest(request).subscribe(
-          {
-            next: (data: ReservationRequest) => {
-              //TODO: navigate to my reservations?
-              console.log("made reservation request: ")
-              console.log(data)
-              alert("You made a reservation request!");
-              this.sendMessageUsingRest();
-            },
-            error: (_) => {
-            }
-          }
-        );
-      } else {
-        if (!this.checkDate(new Date(this.startDate.toString()))
-          || !this.checkDate(new Date(this.endDate.toString()))) {
-          alert("Dates are not available!");
-        } else {
-          if (this.people <= 0) {
-            alert("Number of people is invalid!")
-          } else if (this.people < this.accommodation.min_capacity) {
-            alert("More people required!")
-          } else if (this.people > this.accommodation.max_capacity) {
-            alert("Less people required!")
-          }
-        }
-      }
-    } else {
-      if (!this.checkDate(new Date(this.startDate.toString()))
-        || !this.checkDate(new Date(this.endDate.toString()))) {
-        alert("Dates are not available!");
-      } else if (this.people <= 0) {
-        alert("Number of people is invalid!")
-      } else if (this.people < this.accommodation.min_capacity) {
-        alert("More people required!")
-      } else if (this.people > this.accommodation.max_capacity) {
-        alert("Less people required!")
-      }
-    }
+    this.router.navigate(['/make_request', this.accommodation.id]);
   }
 
   private checkDate(selectedDate: Date) {

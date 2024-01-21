@@ -19,6 +19,7 @@ import { ApproveAccommodationCardComponent } from './approve-accommodation-card/
 import {MatSlideToggleModule} from "@angular/material/slide-toggle";
 import { FavouriteCardComponent } from './favourite-card/favourite-card.component';
 import { FavouriteAccommodationsComponent } from './favourite-accommodations/favourite-accommodations.component';
+import { MakeReservationRequestComponent } from './make-reservation-request/make-reservation-request.component';
 
 
 
@@ -33,7 +34,8 @@ import { FavouriteAccommodationsComponent } from './favourite-accommodations/fav
     ApproveAccommodationComponent,
     ApproveAccommodationCardComponent,
     FavouriteCardComponent,
-    FavouriteAccommodationsComponent
+    FavouriteAccommodationsComponent,
+    MakeReservationRequestComponent
   ],
   imports: [
     CommonModule,

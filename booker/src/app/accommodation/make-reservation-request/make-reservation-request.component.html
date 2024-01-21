@@ -1,0 +1,28 @@
+<div class="desktop-11">
+
+  <div class="dialog1">
+
+    <div class="reservation" *ngIf="loggedInGuest!=0">
+      <b class="title">Make a reservation request: </b><br><br>
+      <div class="left_part_reservation">
+        <mat-form-field>
+          <mat-label>Enter a date range</mat-label>
+          <mat-date-range-input [rangePicker]="picker" [dateFilter]="invalidDateFiter">
+            <input matStartDate placeholder="Start date" [(ngModel)]="startDate" [value]="startDate | date:'yyyy-MM-dd'">
+            <input matEndDate placeholder="End date" [(ngModel)]="endDate" [value]="endDate | date:'yyyy-MM-dd'">
+          </mat-date-range-input>
+          <mat-hint>YYYY-MM-DD – YYYY-MM-DD</mat-hint>
+          <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-date-range-picker #picker (closed)="closed()"></mat-date-range-picker>
+        </mat-form-field>
+      </div>
+      <form #request="ngForm" (ngSubmit)="makeReservation()" *ngIf="!submitted" [formGroup]="form" >
+        <input required type="number" id="people_input" name="people_input" placeholder="How many people?" [(ngModel)]="people" (change)="closed()" formControlName="people">
+        <input type="text" id="price" placeholder="Total price" value={{totalPrice}}>
+        <button type="submit" class="reservation_btn">Make a request!</button>
+      </form>
+    </div>
+
+  </div>
+  
+</div>

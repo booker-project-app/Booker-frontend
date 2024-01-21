@@ -147,7 +147,11 @@ describe('MakeReservationRequestComponent', () => {
     expect(component.accommodation.address.city).toEqual('grad');
   }));
 
-  it(`form should not be valid`, () => {
+  it(`form should not be valid because required and not imputed`, () => {
+    expect(component.form.valid).toBeFalsy();
+  });
+
+  it(`form should not be valid because people less than min`, () => {
     component.startDate = new Date('2024-03-22');
     component.endDate = new Date('2024-03-25');
     component.form.controls["people"].setValue('-2');

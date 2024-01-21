@@ -139,4 +139,18 @@ describe('AccommodationService', () => {
     expect(accommodation.images).toEqual([]);
 
   }));
+
+  it('getPrice() should query url and get price', fakeAsync(()=> {
+    let price = 0;
+    let mockPrice = 120;
+    service.getPrice(1, "2024-03-22", "2024-03-25", 2).subscribe(res => price = res);
+    const req = httpController.expectOne('http://localhost:8080/api/prices/1/2024-03-22/2024-03-25/2');
+    expect(req.request.method).toBe('GET');
+    req.flush(mockPrice);
+
+    tick();
+    expect(price).toBeDefined();
+    expect(price).toBe(120);
+
+  }));
 });

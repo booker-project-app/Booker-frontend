@@ -28,7 +28,7 @@ export class GuestViewComponent implements OnInit{
   ngOnInit(): void {
     const loggedId = Number(localStorage.getItem("loggedId"));
     this.loggedIn = loggedId;
-    this.service.getGuestById(loggedId).subscribe({
+    this.service.getGuestById(1).subscribe({
       next: (result: Guest) => {
         this.guest = result;
         if (this.guest.profilePicture) {

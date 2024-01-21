@@ -8,6 +8,7 @@ import {BehaviorSubject, of} from "rxjs";
 import {AccommodationViewDto} from "../accommodation/model/accommodation-view";
 import {Injectable} from "@angular/core";
 import {ActivatedRoute} from "@angular/router";
+import {By} from "@angular/platform-browser";
 
 @Injectable()
 export class ActivatedRouteStub {
@@ -63,7 +64,22 @@ describe('MakeReservationRequestComponent', () => {
             id: 1,
             title: "neki string"
           }
-        ))
+        )),
+      makeReservationRequest: jasmine.createSpy('makeReservationRequest')
+        .and.returnValue(of({
+            id: 1,
+            accommodationId: 1,
+            guestId: 1,
+            fromDate: "2024-03-22",
+            toDate: "2024-03-25",
+            numberOfGuests: 2,
+            status: 0,
+            deleted: false,
+            price: 120.0
+          }
+        )),
+      getPrice: jasmine.createSpy('getPrice')
+        .and.returnValue(of(120))
     }
 
     let locationMock = {
@@ -81,10 +97,6 @@ describe('MakeReservationRequestComponent', () => {
         }
       }
     );
-
-
-    // const AccommodationServiceSpy = jasmine.createSpyObj<AccommodationService>(['getAccommodation']);
-    // AccommodationServiceSpy.getAccommodation.and.returnValue(of(accommodation));
 
     TestBed.configureTestingModule({
       declarations: [MakeReservationRequestComponent],
@@ -135,10 +147,35 @@ describe('MakeReservationRequestComponent', () => {
     expect(component.accommodation.address.city).toEqual('grad');
   }));
 
+  it(`form should not be valid`, () => {
+    component.startDate = new Date('2024-03-22');
+    component.endDate = new Date('2024-03-25');
+    component.form.controls["people"].setValue('-2');
+    expect(component.form.valid).toBeFalsy();
+  });
+
   it(`form should be valid`, () => {
     component.startDate = new Date('2024-03-22');
     component.endDate = new Date('2024-03-25');
     component.form.controls["people"].setValue('2');
     expect(component.form.valid).toBeTruthy();
   });
+
+  it('should add reservation request', fakeAsync(() => {
+    component.ngOnInit();
+    expect(accService.getAccommodation).toHaveBeenCalledWith(1);
+    tick();
+    component.startDate = new Date('2024-03-22');
+    component.endDate = new Date('2024-03-25');
+    component.form.controls["people"].setValue('2');
+    component.closed();
+    expect(accService.getPrice).toHaveBeenCalled();
+    tick();
+    expect(component.totalPrice).toEqual("120.00 $");
+    expect(component.form.valid).toBeTruthy();
+    spyOn(component, "makeReservation");
+    component.makeReservation();
+    tick()
+    expect(component.makeReservation).toHaveBeenCalled();
+  }));
 });

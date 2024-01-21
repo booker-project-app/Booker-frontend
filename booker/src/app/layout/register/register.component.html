@@ -53,12 +53,12 @@
       </div>
 
       <div id="buttons">
-        <button type="submit" mat-raised-button id="btnRegister">Register</button>
-        <button type="reset" mat-raised-button id="btnCancel" routerLink="/">Cancel</button>
+        <button type="submit" [disabled]="!isFormValid()" mat-raised-button id="btnRegister">Register</button>
+        <button type="reset" mat-raised-button id="btnCancel" (click)="onReset()">Cancel</button>
       </div>
     </form>
     <div id="sign-up">
-      <span id="account">Already have an account?<button mat-button id="btnSignUp" [routerLink]="['/login']">Log in</button></span>
+      <span id="account">Already have an account?<button mat-button id="btnSignUp">Log in</button></span>
     </div>
   </div>
 </div>

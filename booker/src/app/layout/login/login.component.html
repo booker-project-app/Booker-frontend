@@ -5,12 +5,12 @@
     <form #loginForm="ngForm" (ngSubmit)="onSubmit()" *ngIf="!submitted" [formGroup]="form">
       <mat-form-field>
         <mat-label>Enter your email</mat-label>
-        <input formControlName="email" matInput placeholder="pat@example.com" required>
+        <input formControlName="email" matInput placeholder="pat@example.com" required id="emailField">
 <!--        <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error>-->
       </mat-form-field>
       <mat-form-field>
         <mat-label>Enter your password</mat-label>
-        <input formControlName="password" matInput [type]="hide ? 'password' : 'text'" required>
+        <input formControlName="password" matInput [type]="hide ? 'password' : 'text'" required id="passwordField">
         <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
           <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
         </button>

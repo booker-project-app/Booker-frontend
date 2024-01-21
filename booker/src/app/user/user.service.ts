@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {UserType} from "../enums/user-type.enum";
 import {User} from "./model/user.model";
-import {HttpClient, HttpErrorResponse, HttpHeaders} from "@angular/common/http";
+import {HttpClient, HttpErrorResponse, HttpHeaders, HttpResponse} from "@angular/common/http";
 import {catchError, map, Observable, switchMap, throwError} from "rxjs";
 import {Guest} from "./guest-view/model/guest.model";
 import {environment} from "../../env/env";
@@ -11,6 +11,7 @@ import {Admin} from "./admin-view/model/admin.model";
 import {ApiService, ConfigService} from "../service";
 import {Router} from "@angular/router";
 import {UserDTO} from "./dto/UserDTO";
+import {CreateUserDTO} from "./dto/CreateUserDTO";
 
 
 const USERS = [
@@ -109,15 +110,13 @@ export class UserService {
 
 
 
-  signup(createUserDTO:any) {
+  signup(createUserDTO:any): Observable<CreateUserDTO> {
     const signupHeaders = new HttpHeaders({
       'Accept': 'application/json',
       'Content-Type': 'application/json'
     });
-    return this.apiService.post(this.config.signup_url, JSON.stringify(createUserDTO), signupHeaders)
-      .pipe(map(() => {
-        console.log('Sign up success');
-      }));
+    return this.apiService.post(this.config.signup_url, createUserDTO, signupHeaders)
+        .pipe(map((response: HttpResponse<any>) => response.body as CreateUserDTO));
   }
 
   activateProfile(activationLink:string) {

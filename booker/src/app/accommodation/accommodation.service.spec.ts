@@ -116,7 +116,7 @@ describe('AccommodationService', () => {
                     cost: 150,
                     fromDate: '2024-12-15',
                     toDate: '2024-12-31',
-                    type: 'PER_GUEST'
+                    type: PriceType.PER_GUEST
                 }],
                 deadline: 3
             });

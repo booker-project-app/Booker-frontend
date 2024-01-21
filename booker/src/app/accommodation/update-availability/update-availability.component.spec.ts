@@ -368,7 +368,6 @@ describe('UpdateAvailabilityComponent', () => {
     fixture.detectChanges();
 
 
-    // Expect the form to be reset
     expect(component.formGroupAvailability.value).toEqual({
       startDate: null,
       endDate: null

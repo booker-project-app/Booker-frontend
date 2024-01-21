@@ -8,7 +8,5 @@ export interface CreateUserDTO {
   password: string;
   address: string;
   phone: string;
-  role?: UserType;
-  profilePicture?: ProfilePicture;
-  activationLink: string;
+  role: UserType;
 }

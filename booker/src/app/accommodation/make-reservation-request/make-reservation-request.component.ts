@@ -32,10 +32,6 @@ export class MakeReservationRequestComponent {
     people: new FormControl('', [Validators.required,
       Validators.min(1)])
   });
-  add_comment_form = new FormGroup({
-    content: new FormControl('', [Validators.required]),
-    rating: new FormControl(0, [Validators.required, Validators.min(1), Validators.max(5)])
-  });
 
   constructor(private userService: UserService,
               private route: ActivatedRoute,

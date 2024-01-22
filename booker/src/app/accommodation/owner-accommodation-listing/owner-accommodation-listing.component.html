@@ -1,8 +1,8 @@
 <div class="background">
   <div class="container">
     <div class="placeholder">
-      <div class="h-background">
-        <h2>Accepted accommodation</h2>
+      <div class="h-background" >
+        <h2 id="accepted_accommodation">Accepted accommodation</h2>
       </div>
       <div *ngFor="let accommodation of acceptedAccommodations" class="card_div">
         <app-owner-accommodation-card (clicked)="onAccommodationClick($event)" [accommodation]="accommodation"></app-owner-accommodation-card>
@@ -10,8 +10,8 @@
     </div>
     <br>
     <div class="placeholder">
-      <div class="h-background">
-        <h2>My accommodation</h2>
+      <div class="h-background" >
+        <h2 id="my_accommodation">My accommodation</h2>
       </div>
       <div *ngFor="let accommodation of accommodations" class="card_div">
         <app-owner-accommodation-card (clicked)="onAccommodationClick($event)" [accommodation]="accommodation"></app-owner-accommodation-card>

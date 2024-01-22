@@ -3,17 +3,17 @@
   <div class="container">
     <div class="logo-container">
       <img src="../../../assets/images/big-logo.png" alt="logo" class="logo">
-      <input id="duration" value="2000" type="number" min="0" step="100" style="display: none" #duration>
+      <input id="duration" value="3000" type="number" min="0" step="100" style="display: none" #duration>
     </div>
     <form>
       <mat-vertical-stepper [linear]="false" [animationDuration]="duration.value" #stepper>
 
         <mat-step [stepControl]="formGroupAvailability">
-          <form [formGroup]="formGroupAvailability">
+          <form [formGroup]="formGroupAvailability" id="formGroupAvailability">
             <ng-template matStepLabel>Accommodation availability</ng-template>
             <mat-form-field>
               <mat-label>Enter a date range</mat-label>
-              <mat-date-range-input [min]="todayDate" [rangePicker]="picker" >
+              <mat-date-range-input [min]="todayDate" [rangePicker]="picker" id="availabilityRange">
                 <input [min]="todayDate" formControlName="startDate" matStartDate placeholder="Start date">
                 <input [min]="todayDate" formControlName="endDate"  matEndDate placeholder="End date">
               </mat-date-range-input>
@@ -21,11 +21,11 @@
               <mat-date-range-picker #picker></mat-date-range-picker>
             </mat-form-field>
             <button mat-button matStepperPrevious type="button">Back</button>
-            <button mat-button matStepperNext type="button">Next</button>
+            <button mat-button matStepperNext type="button" id="nextStepAvailability">Next</button>
           </form>
         </mat-step>
         <mat-step [stepControl]="formGroupPrice">
-          <form [formGroup]="formGroupPrice">
+          <form [formGroup]="formGroupPrice" id="formGroupPrice">
             <ng-template matStepLabel>Accommodation price</ng-template>
             <mat-form-field>
               <mat-label>Enter period</mat-label>
@@ -39,7 +39,7 @@
             </mat-form-field>
             <mat-form-field>
               <mat-label>Enter amount</mat-label>
-              <input type="number" matInput required formControlName="amount">
+              <input type="number" matInput required formControlName="amount" id="amount">
               <mat-icon matPrefix>attach_money</mat-icon>
             </mat-form-field>
             <mat-card>
@@ -51,19 +51,19 @@
               </mat-card-content>
             </mat-card>
             <button mat-button matStepperPrevious type="button">Back</button>
-            <button mat-button matStepperNext type="button">Next</button>
+            <button mat-button matStepperNext type="button" id="nextStepPrice">Next</button>
           </form>
         </mat-step>
         <mat-step [stepControl]="formGroupDeadline">
-          <form [formGroup]="formGroupDeadline">
+          <form [formGroup]="formGroupDeadline" id="formGroupDeadline">
             <ng-template matStepLabel>Cancellation deadline</ng-template>
             <mat-form-field>
               <mat-label>Enter deadline</mat-label>
-              <input type="number" matInput required formControlName="deadline">
+              <input type="number" matInput required formControlName="deadline" id="deadline">
               <mat-icon matPrefix>free_cancellation</mat-icon>
             </mat-form-field>
             <button mat-button matStepperPrevious type="button">Back</button>
-            <button mat-button matStepperNext type="button">Next</button>
+            <button mat-button matStepperNext type="button" id="nextStepDeadline">Next</button>
           </form>
         </mat-step>
         <mat-step>

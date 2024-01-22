@@ -20,7 +20,7 @@
           <li class="menu-item" *ngIf="loginRole==='owners'"><button type="button" (click)="toggleMenu()" [routerLink]="['create_accommodation']">Create accommodation</button> </li>
           <li class="menu-item" *ngIf="loginRole==='owners'"><button type="button" (click)="toggleMenu()" [routerLink]="['report/date']">Date interval report</button> </li>
           <li class="menu-item" *ngIf="loginRole==='owners'"><button type="button" (click)="toggleMenu()" [routerLink]="['report/accommodation']">Accommodation report</button> </li>
-          <li class="menu-item"><button type="button" (click)="logout()" >Log out</button></li>
+          <li class="menu-item" id="logout"><button type="button" (click)="logout()" >Log out</button></li>
         </ul>
       </div>
       <div class="profile-button" *ngIf="loginUserId!=0">

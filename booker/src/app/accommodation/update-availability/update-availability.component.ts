@@ -68,13 +68,12 @@ export class UpdateAvailabilityComponent implements OnInit{
         console.log("Successfully updated: ", response);
         this.resetForm();
         //this.uploadPhotos(response.id!);
-        this.openSnackBar("Success!", "Close");
-
+         this.openSnackBar("Success!", "Close");
       },
       (error) => {
         console.error("Error in updating availability: ", error);
-        alert("Validation failed");
-        this.openSnackBar("Error updating availability", "Close");
+         //alert("Validation failed");
+         this.openSnackBar("Error updating availability", "Close");
       }
     )
 
@@ -102,6 +101,4 @@ export class UpdateAvailabilityComponent implements OnInit{
       deadline: 0,
     });
   }
-
-
 }

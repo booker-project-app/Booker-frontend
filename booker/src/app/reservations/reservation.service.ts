@@ -11,8 +11,8 @@ export class ReservationService {
 
   constructor(private http: HttpClient) { }
 
-  getAllForGuest(guestId: number) : Observable<Reservation[]>{
-    return this.http.get<Reservation[]>(environment.apiHost + 'api/reservations/guest/' + guestId);
+  getAllForGuest() : Observable<Reservation[]>{
+    return this.http.get<Reservation[]>(environment.apiHost + 'api/reservations/guest/1');
   }
 
   getAllForAccommodation(id: number) : Observable<Reservation[]>{

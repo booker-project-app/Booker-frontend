@@ -18,7 +18,7 @@ export class GuestReservationsComponent implements OnInit{
 
   ngOnInit(): void {
     const loggedId = Number(localStorage.getItem("loggedId"));
-    this.service.getAllForGuest(loggedId).subscribe({
+    this.service.getAllForGuest().subscribe({
       next: (data: Reservation[]) => {
         console.log(data);
         this.reservations = data

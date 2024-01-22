@@ -72,7 +72,17 @@ export class GuestViewComponent implements OnInit{
 
   applyChanges() {
     if (this.newPassword === this.confirmPassword) {
-      this.saveChanges();
+      if(this.newPassword === "" || (this.newPassword != "" && this.newPassword.length>=8)) {
+        if (this.updateUser.name != "" && this.updateUser.email != "" && this.updateUser.email?.includes('@') &&
+                      this.updateUser.phone != "" && this.updateUser.address != "") {
+          this.saveChanges();
+        }
+        else {
+          alert("Not valid!");
+        }
+      } else {
+        alert("Password must contain at least 8 characters!");
+      }
     } else {
       this.openDialog("Password error", "Passwords must be the same!");
       console.log('Passwords must be the same!');

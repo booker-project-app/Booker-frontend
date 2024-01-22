@@ -125,5 +125,120 @@ describe('GuestViewComponent', () => {
 
   }));
 
+  it(`should not be valid because fields are empty`, () => {
+    const saveChangesSpy = spyOn(component, 'saveChanges');
+    component.updateUser.name = "";
+    component.updateUser.email = "";
+    component.updateUser.address = "";
+    component.updateUser.phone = "";
+    component.applyChanges();
+    expect(saveChangesSpy).toHaveBeenCalledTimes(0);
+  });
+
+  it(`should not be valid because name is empty`, () => {
+    const saveChangesSpy = spyOn(component, 'saveChanges');
+    component.updateUser.name = "";
+    component.updateUser.email = "email123@gmail.com";
+    component.updateUser.address = "adresica";
+    component.updateUser.phone = "06000000000";
+    component.applyChanges();
+    expect(saveChangesSpy).toHaveBeenCalledTimes(0);
+  });
+
+  it(`should not be valid because address is empty`, () => {
+    const saveChangesSpy = spyOn(component, 'saveChanges');
+    component.updateUser.name = "Ime";
+    component.updateUser.email = "email123@gmail.com";
+    component.updateUser.address = "";
+    component.updateUser.phone = "06000000000";
+    component.applyChanges();
+    expect(saveChangesSpy).toHaveBeenCalledTimes(0);
+  });
+
+  it(`should not be valid because phone is empty`, () => {
+    const saveChangesSpy = spyOn(component, 'saveChanges');
+    component.updateUser.name = "Ime";
+    component.updateUser.email = "email123@gmail.com";
+    component.updateUser.address = "adresica";
+    component.updateUser.phone = "";
+    component.applyChanges();
+    expect(saveChangesSpy).toHaveBeenCalledTimes(0);
+  });
+
+  it(`should not be valid because email is empty`, () => {
+    const saveChangesSpy = spyOn(component, 'saveChanges');
+    component.updateUser.name = "Ime";
+    component.updateUser.email = "";
+    component.updateUser.address = "adresica";
+    component.updateUser.phone = "06000000000";
+    component.applyChanges();
+    expect(saveChangesSpy).toHaveBeenCalledTimes(0);
+  });
+
+  it(`should not be valid because email is not valid`, () => {
+    const saveChangesSpy = spyOn(component, 'saveChanges');
+    component.updateUser.name = "Ime";
+    component.updateUser.email = "email123";
+    component.updateUser.address = "adresica";
+    component.updateUser.phone = "06000000000";
+    component.applyChanges();
+    expect(saveChangesSpy).toHaveBeenCalledTimes(0);
+  });
+
+  it(`should not be valid because passwords are not the same`, () => {
+    const saveChangesSpy = spyOn(component, 'saveChanges');
+    component.updateUser.name = "Ime";
+    component.updateUser.email = "email123@gmail.com";
+    component.updateUser.address = "adresica";
+    component.updateUser.phone = "06000000000";
+    component.newPassword = "abcdefghi";
+    component.confirmPassword = "abc";
+    component.applyChanges();
+    expect(saveChangesSpy).toHaveBeenCalledTimes(0);
+  });
+
+  it(`should not be valid because password is invalid`, () => {
+    const saveChangesSpy = spyOn(component, 'saveChanges');
+    component.updateUser.name = "Ime";
+    component.updateUser.email = "email123@gmail.com";
+    component.updateUser.address = "adresica";
+    component.updateUser.phone = "06000000000";
+    component.newPassword = "abc";
+    component.confirmPassword = "abc";
+    component.applyChanges();
+    expect(saveChangesSpy).toHaveBeenCalledTimes(0);
+  });
+
+  it(`should be valid`, () => {
+    const saveChangesSpy = spyOn(component, 'saveChanges');
+    component.updateUser.name = "Ime";
+    component.updateUser.email = "email123@gmail.com";
+    component.updateUser.address = "adresica";
+    component.updateUser.phone = "06000000000";
+    component.newPassword = "abcdefghi";
+    component.confirmPassword = "abcdefghi";
+    component.applyChanges();
+    expect(saveChangesSpy).toHaveBeenCalledTimes(1);
+  });
+
+  it(`should be valid without password change`, () => {
+    const saveChangesSpy = spyOn(component, 'saveChanges');
+    component.updateUser.name = "Ime";
+    component.updateUser.email = "email123@gmail.com";
+    component.updateUser.address = "adresica";
+    component.updateUser.phone = "06000000000";
+    component.newPassword = "";
+    component.confirmPassword = "";
+    component.applyChanges();
+    expect(saveChangesSpy).toHaveBeenCalledTimes(1);
+  });
+
+  it('should delete user account', fakeAsync(() => {
+    const deleteAccountSpy = spyOn(component, 'deleteAccount');
+    component.deleteAccount();
+    tick();
+    expect(deleteAccountSpy).toHaveBeenCalledTimes(1);
+  }));
+
 
 });

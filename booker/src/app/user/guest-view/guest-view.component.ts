@@ -65,8 +65,32 @@ export class GuestViewComponent implements OnInit{
   }
 
   saveChanges(): void {
+    if (this.newPassword != ""){
+      this.updateUser.password = this.newPassword;
+    }
     this.service.updateGuest(this.loggedIn, this.updateUser).subscribe((response) => {
       console.log('Updated user data!', response);
+      this.service.getGuestById(this.loggedIn).subscribe({
+        next: (result: Guest) => {
+          this.guest = result;
+          if (this.guest.profilePicture) {
+            this.path = this.guest.profilePicture.path;
+          }
+          this.updateUser = {
+            _id: this.loggedIn,
+            name: result.name,
+            surname: result.surname,
+            email: result.email,
+            address: result.address,
+            phone: result.phone,
+            password: result.password,
+            profilePicture: result.profilePicture
+          };
+        },
+        error: (err: any) => {
+          console.log(err);
+        }
+      })
     });
   }
 
